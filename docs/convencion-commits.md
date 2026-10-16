@@ -3,18 +3,20 @@
 Formato obligatorio:
 <type>(scope): mensaje claro
 
-Tipos permitidos:
-- feat
-- fix
-- docs
-- style
-- refactor
-- test
-- chore
+## Tipos permitidos
+- feat: nueva funcionalidad
+- fix: corrección de errores
+- docs: documentación
+- style: cambios de formato
+- refactor: reestructuración sin cambiar comportamiento
+- test: pruebas
+- chore: tareas de mantenimiento
 
-Ejemplos:
-feat(api): agregar endpoint de login
-fix(core): corregir validación
-docs(readme): actualizar documentación
+## Ejemplos
+feat(api): agregar endpoint de login  
+fix(core): corregir validación de usuario  
+docs(readme): actualizar instrucciones
 
-Los commits que no sigan este formato serán rechazados.
+## Política
+Los commits que no sigan este formato serán rechazados en el Pull Request.
+
