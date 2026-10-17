@@ -16,4 +16,3 @@ test("detecta espacios vacíos", () => {
 test("acepta texto válido", () => {
   expect(validarEntrada("hola")).toBe("OK");
 });
-
