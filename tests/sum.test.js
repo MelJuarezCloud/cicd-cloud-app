@@ -1,4 +1,4 @@
-import { sum } from "../src/sum";
+module.exports = { sum };
 
 test("suma dos números positivos", () => {
   expect(sum(2, 3)).toBe(5);
