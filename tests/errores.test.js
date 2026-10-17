@@ -8,4 +8,3 @@ function dividir(a, b) {
 test("lanza error si los parámetros no son números", () => {
   expect(() => dividir("hola", 2)).toThrow("Parámetros inválidos");
 });
-
