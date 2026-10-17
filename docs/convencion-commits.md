@@ -1,22 +1,18 @@
-# Convención de Commits (Conventional Commits)
+# Convención de Commits
 
-Formato obligatorio:
-<type>(scope): mensaje claro
+Usamos Conventional Commits.
 
 ## Tipos permitidos
 - feat: nueva funcionalidad
 - fix: corrección de errores
-- docs: documentación
-- style: cambios de formato
-- refactor: reestructuración sin cambiar comportamiento
-- test: pruebas
-- chore: tareas de mantenimiento
+- docs: cambios en documentación
+- test: cambios en pruebas
+- chore: tareas menores
+- ci: cambios en pipeline
 
 ## Ejemplos
-feat(api): agregar endpoint de login  
-fix(core): corregir validación de usuario  
-docs(readme): actualizar instrucciones
+- feat: agregar endpoint de usuarios
+- fix: corregir error en validación
+- docs: actualizar README
 
-## Política
-Los commits que no sigan este formato serán rechazados en el Pull Request.
 
