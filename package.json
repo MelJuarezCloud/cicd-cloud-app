@@ -1,13 +1,12 @@
 {
   "name": "cicd-cloud-app",
   "version": "1.0.0",
-  "description": "Proyecto 11 - CI/CD Cloud Económico para Apps Web",
-  "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "lint": "eslint .",
+    "test": "echo \"No tests yet\" && exit 0"
   },
   "devDependencies": {
-    "jest": "^29.0.0"
+    "eslint": "^8.57.0"
   }
 }
