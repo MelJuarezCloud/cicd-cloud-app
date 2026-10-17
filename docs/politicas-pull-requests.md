@@ -1,14 +1,12 @@
 # Políticas de Pull Requests
 
-Estas políticas aplican a todos los PR del repositorio.
+## Requisitos
+- PR debe incluir descripción clara
+- Debe usar la plantilla de PR
+- Commits deben seguir Conventional Commits
+- Lint sin errores
+- Pruebas deben pasar
 
-## Reglas obligatorias
-- El PR debe pasar ESLint sin errores.
-- El PR debe pasar todas las pruebas unitarias (Jest).
-- Los commits deben seguir Conventional Commits.
-- Debe existir al menos 1 revisor.
-- El pipeline de CI/CD debe ejecutarse correctamente.
-- Si falla lint o tests, el PR queda bloqueado automáticamente.
-
-## Objetivo
-Garantizar calidad, consistencia y estabilidad del código.
+## Aprobación
+- Mínimo 1 revisor
+- No se permiten merges directos a main
