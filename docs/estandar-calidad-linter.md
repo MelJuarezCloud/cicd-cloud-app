@@ -1,15 +1,18 @@
-# Estándares del Linter (ESLint)
+# Estándares de Calidad
 
-Estas reglas son obligatorias para todo el equipo y deben cumplirse antes de aprobar cualquier Pull Request.
+## ESLint
+- Usar reglas definidas en `.eslintrc.json`
+- Prohibido subir código con errores de lint
+- Comillas dobles
+- Punto y coma obligatorio
+- No dejar variables sin usar
 
-## Reglas configuradas
-- eqeqeq: uso estricto de ===
-- curly: llaves obligatorias
-- semi: punto y coma obligatorio
-- quotes: comillas dobles
-- indent: 2 espacios
-- no-unused-vars: prohibido dejar variables sin uso
-- no-console: permitido para desarrollo
+## Estructura del proyecto
+- Código en `/src`
+- Pruebas en `/tests`
+- Documentación en `/docs`
 
-## Política
-Si el código no cumple estas reglas, el PR será bloqueado automáticamente por GitHub Actions.
+## Buenas prácticas
+- Funciones pequeñas
+- Nombres descriptivos
+- Evitar duplicación de código
