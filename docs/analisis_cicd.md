@@ -1,34 +1,60 @@
-# \# Documento de Análisis del Sistema CI/CD y Gestión de Riesgos (Fase 1)
+# Documento de Análisis y Diseño del Sistema CI/CD
+**Proyecto:** CI/CD Cloud Económico para Aplicaciones Web  
+**Grupo:** SN-3  
+**Fase 1:** Análisis y Diseño  
 
-# 
+---
 
-# \## 1. Dependencias del Proyecto y Herramientas Seleccionadas
+## 1. Contexto y Requerimientos del Cliente (DNSDE)
+(Responsable: Melvin Juárez)
+**Problemática actual:** (Describir los retrasos por despliegues manuales, ausencia de pruebas automatizadas y falta de trazabilidad/rollback).
+**Alcance funcional del pipeline:** (Automatización del build, test, deploy y health check).
+**Tiempos y frecuencia:** (Expectativa de entrega continua y tiempos de respuesta).
 
-# 
+---
 
-# \* \*\*Control de Versiones y Repositorio (`Git` y `GitHub`):\*\* Seleccionados por su robustez, compatibilidad multiplataforma y soporte nativo para flujos de trabajo colaborativos mediante el modelo GitFlow (`main` y `dev`)\[cite: 10, 11, 12, 16].
+## 2. Estrategia de Branching y Flujo de Trabajo
+(Responsable: Melvin Juárez)
+**main:** Rama de producción (despliegues estables y aprobados).
+**dev:** Rama de integración y pruebas previas.
+**feature/*:** Ramas temporales para desarrollo de nuevas funcionalidades o secciones.
+**hotfix/*:** Correcciones rápidas de errores en producción.
 
-# \* \*\*Automatización de Pipelines (`GitHub Actions`):\*\* Seleccionado debido a su integración directa con el repositorio, ausencia de costos de infraestructura propia y un modelo basado en eventos nativos eficiente para proyectos de la DNSDE\[cite: 5, 6, 11, 16].
+---
 
-# \* \*\*Plataforma de Despliegue Cloud (`Vercel`):\*\* Seleccionada por su optimización para aplicaciones web ligeras, despliegues automáticos desacoplados por rama y su infraestructura optimizada para entornos gratuitos (\*Free Tier\*)\[cite: 11, 16].
+## 3. Arquitectura y Mapa Lógico del Pipeline (Diagramas)
+(Responsable: Carlos López)
+**Flujo general:** Commit ➔ Build ➔ Lint/Test ➔ Deploy ➔ Health Check
+(Insertar aquí enlace o imagen del diagrama elaborado en Draw.io / Figma)
 
-# \* \*\*Justificación Operativa:\*\* Esta combinación tecnológica resuelve directamente los retrasos ocasionados por los despliegues manuales tradicionales de la DNSDE al automatizar la validación de código, pruebas y lanzamientos a producción tras cada confirmación (\*push\*)\[cite: 7, 8, 9, 11, 16].
+---
 
-# 
+## 4. Boceto de Configuración YAML (GitHub Actions)
+(Responsable: Carlos López)
+**Disparadores (Triggers):** (on: push a main/dev, on: pull_request a dev).
+**Jobs preliminares:** (Estructura base del archivo .github/workflows/main.yml).
 
-# \---
+---
 
-# 
+## 5. Análisis de Infraestructura Cloud y Cuotas (Vercel)
+(Responsable: Carlos Martínez)
+**Hosting seleccionado:** Vercel (Plan Free Tier).
+**Gestión de secretos:** Uso de GitHub Secrets para tokens y variables de entorno.
+**Mitigación de límites:** Estrategia de caché de dependencias para ahorrar minutos de GitHub Actions.
 
-# \## 2. Análisis de Cuotas del Free Tier (Documento de Riesgos)
+---
 
-# 
+## 6. Estándares de Código, Linter y Pruebas Unitarias
+(Responsable: Tamara Martínez)
+**Linter:** Configuración y reglas base de ESLint para Node.js.
+**Testing:** Definición del framework Jest (mínimo 5 pruebas unitarias previstas).
+**Convenciones:** Uso de Conventional Commits y políticas estrictas para Pull Requests.
 
-# \* \*\*GitHub Actions (Minutos de Cómputo):\*\* El plan gratuito ofrece 2,000 minutos mensuales para repositorios privados\[cite: 11, 16]. El riesgo identificado radica en la acumulación de ejecuciones innecesarias ante múltiples confirmaciones\[cite: 16].
+---
 
-# &#x20; \* \*\*Mitigación:\*\* Optimización de disparadores (\*triggers\*) en los archivos YAML y acotación de pruebas estrictamente necesarias\[cite: 11, 16].
-
-# \* \*\*Vercel (Ancho de Banda y Despliegues):\*\* El límite del \*Free Tier\* contempla restricciones en transferencia de datos mensual y límites de compilación concurrente\[cite: 11, 16]. El riesgo comprende la saturación ante picos inesperados de tráfico\[cite: 16].
-
-# &#x20; \* \*\*Mitigación:\*\* Implementación de políticas de caché eficientes, optimización de recursos estáticos y control estricto de dependencias en el directorio `/src`\[cite: 11, 14, 16].S
-
+## 7. Matriz de Riesgos y Planes de Mitigación
+(Responsable: Zuleima Medina)
+| Riesgo Detectado | Impacto | Probabilidad | Estrategia de Mitigación / Rollback |
+| :--- | :--- | :--- | :--- |
+| Fallo en el Build por dependencias | Alto | Media | Uso de caché de Actions y validación previa con Linter local |
+| Superar límite de minutos gratuitos | Medio | Baja | Optimización de triggers y exclusión de builds innecesarios |
