@@ -5,7 +5,6 @@ Repositorio oficial para la gestión de infraestructura, despliegues continuos y
 ## 🚀 Descripción del Proyecto
 Este proyecto forma parte de la estancia técnica orientada a diseñar, configurar y desplegar flujos de Integración Continua y Despliegue Continuo (CI/CD) utilizando herramientas modernas y plataformas en la nube gratuitas.
 
-
 ## 📂 Estructura del Repositorio
 * `/src` - Código fuente de la aplicación web.
 * `/tests` - Módulos de pruebas automatizadas.
