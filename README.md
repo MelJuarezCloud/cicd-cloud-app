@@ -1,5 +1,5 @@
 # CI/CD Cloud Económico para Aplicaciones Web (DNSDE)
- 
+
 Repositorio oficial para la gestión de infraestructura, despliegues continuos y automatización bajo un modelo de costos optimizados (Free Tier).
 
 ## 🚀 Descripción del Proyecto
@@ -15,4 +15,5 @@ Este proyecto forma parte de la estancia técnica orientada a diseñar, configur
 ## 🛠️ Tecnologías Utilizadas
 * **Control de Versiones:** Git & GitHub (GitFlow: `main`, `dev`).
 * **Automatización:** GitHub Actions.
+* **Infraestructura:** Vercel / Render / Railway (Free Tier).
 * **Infraestructura:** Vercel / Render / Railway (Free Tier).
