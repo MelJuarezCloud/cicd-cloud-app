@@ -16,4 +16,3 @@ Este proyecto forma parte de la estancia técnica orientada a diseñar, configur
 * **Control de Versiones:** Git & GitHub (GitFlow: `main`, `dev`).
 * **Automatización:** GitHub Actions.
 * **Infraestructura:** Vercel / Render / Railway (Free Tier).
-* 
