@@ -123,6 +123,7 @@ jobs:
 
       - name: Ejecutar pruebas unitarias (Jest)
         run: npm test
+```
 ## 5. Análisis de Infraestructura Cloud y Cuotas (Vercel)
 
 ### 5.1 Selección de Hosting y Stack Tecnológico
@@ -137,8 +138,6 @@ jobs:
 ### 5.3 Análisis de Limitaciones y Mitigación (Free Tier)
 * **Minutos de GitHub Actions:** Límite mensual de 2,000 minutos gratuitos. *Estrategia de mitigación:* Implementación de caché de dependencias de `npm` en los workflows para agilizar los tiempos de compilación.   
 * **Ancho de banda en Vercel:** Restricciones de tráfico en el plan gratuito. *Estrategia de mitigación:* Optimización del código y control de dependencias innecesarias en Node.js.
-
----
 
 ## 6. Estándares de Calidad, Linter y Pruebas Unitarias
 
@@ -157,3 +156,15 @@ jobs:
   * `fix:` para corrección de errores.
   * `docs:` para cambios exclusivos en documentación.
   * `ci:` para modificaciones en los workflows de GitHub Actions.
+
+### 7. Matriz de Riesgos y Planes de Mitigación
+
+| Riesgo Identificado | Impacto | Probabilidad | Estrategia de Mitigación y Recuperación (Rollback) |
+| :--- | :--- | :--- | :--- |
+| **Falla en el Build o dependencias de Node.js rotas** | Alto | Media | Validación estricta local previa y uso de caché en Actions. Si falla, el pipeline detiene el despliegue automáticamente. |
+| **Superar el límite de minutos en GitHub Actions** | Medio | Baja | Monitoreo del consumo mensual y optimización de disparadores. |
+| **Error crítico detectado en producción tras un merge a main** | Alto | Baja | Ejecución de Rollback rápido utilizando el historial de versiones estables directamente desde el panel de Vercel o la reversión de commits. |
+| **Variables de entorno de Node.js mal configuradas** | Alto 
+| Media | Verificación cruzada utilizando el archivo `.env.example` y los secretos seguros configurados en el repositorio. |
+
+
