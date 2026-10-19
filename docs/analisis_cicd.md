@@ -83,3 +83,77 @@ Para preservar la estabilidad del código base en GitHub, se aplicarán las sigu
   * Optimización de archivos estáticos y dependencias ligeras en el directorio `/src`.
   * Exclusión de archivos innecesarios para la producción a través del archivo `.vercelignore`.
   * Monitoreo activo del consumo de métricas desde el Dashboard de Vercel y uso de políticas de caché en el borde (*Edge Caching*).
+ 
+ ## 4. Boceto de Configuración YAML (GitHub Actions)
+
+### 4.1 Disparadores (Triggers)
+El flujo de integración continua para el entorno de Node.js se activará mediante los siguientes eventos en el control de versiones:
+* **`push`**: Activado ante cualquier confirmación de cambios en las ramas principales (`main` y `dev`).
+* **`pull_request`**: Activado al intentar fusionar código hacia la rama `dev`.
+
+### 4.2 Estructura Preliminar de la Pipeline (Jobs)
+```yaml
+name: CI/CD Pipeline - Node.js Web App
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar entorno Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Instalar dependencias de Node.js
+        run: npm ci
+
+      - name: Ejecutar linter (ESLint)
+        run: npm run lint
+
+      - name: Ejecutar pruebas unitarias (Jest)
+        run: npm test
+## 5. Análisis de Infraestructura Cloud y Cuotas (Vercel)
+
+### 5.1 Selección de Hosting y Stack Tecnológico
+* **Lenguaje y Entorno:** Node.js.
+* **Plataforma de Hosting:** Vercel (Plan Free Tier).
+* **Justificación:** Vercel ofrece una compatibilidad nativa óptima para aplicaciones basadas en Node.js, integración automatizada con GitHub, despliegues instantáneos y certificados SSL gratuitos ideales para entornos educativos.
+
+### 5.2 Gestión de Secretos y Seguridad
+* **GitHub Secrets:** Las credenciales sensibles, tokens de despliegue y variables de conexión se almacenarán de forma cifrada en la sección de secretos de GitHub Actions.
+* **Variables de Entorno:** Se utilizará un archivo plantilla (`.env.example`) para documentar las variables requeridas en Node.js.
+
+### 5.3 Análisis de Limitaciones y Mitigación (Free Tier)
+* **Minutos de GitHub Actions:** Límite mensual de 2,000 minutos gratuitos. *Estrategia de mitigación:* Implementación de caché de dependencias de `npm` en los workflows para agilizar los tiempos de compilación.   
+* **Ancho de banda en Vercel:** Restricciones de tráfico en el plan gratuito. *Estrategia de mitigación:* Optimización del código y control de dependencias innecesarias en Node.js.
+
+---
+
+## 6. Estándares de Calidad, Linter y Pruebas Unitarias
+
+### 6.1 Análisis Estático (Linter)
+* **Herramienta:** ESLint configurado específicamente para el ecosistema de Node.js.
+* **Propósito:** Detectar errores de sintaxis, malas prácticas y mantener un formato de código homogéneo en JavaScript antes de permitir cualquier empaquetamiento o despliegue.
+
+### 6.2 Estrategia de Testing
+* **Framework:** Jest.
+* **Alcance:** Creación de un conjunto de pruebas unitarias automatizadas orientadas a validar funciones críticas de la aplicación en Node.js.
+
+### 6.3 Políticas de Pull Requests y Convención de Commits
+* **Pull Requests (PR):** Todo cambio en el código debe pasar por una revisión obligatoria y cumplir con los reportes limpios del linter y los tests.
+* **Conventional Commits:** Los mensajes de confirmación seguirán una estructura estandarizada:
+  * `feat:` para nuevas funcionalidades.
+  * `fix:` para corrección de errores.
+  * `docs:` para cambios exclusivos en documentación.
+  * `ci:` para modificaciones en los workflows de GitHub Actions.
