@@ -164,7 +164,6 @@ jobs:
 | **Falla en el Build o dependencias de Node.js rotas** | Alto | Media | Validación estricta local previa y uso de caché en Actions. Si falla, el pipeline detiene el despliegue automáticamente. |
 | **Superar el límite de minutos en GitHub Actions** | Medio | Baja | Monitoreo del consumo mensual y optimización de disparadores. |
 | **Error crítico detectado en producción tras un merge a main** | Alto | Baja | Ejecución de Rollback rápido utilizando el historial de versiones estables directamente desde el panel de Vercel o la reversión de commits. |
-| **Variables de entorno de Node.js mal configuradas** | Alto 
-| Media | Verificación cruzada utilizando el archivo `.env.example` y los secretos seguros configurados en el repositorio. |
+| **Variables de entorno de Node.js mal configuradas** | Alto | Media | Verificación cruzada utilizando el archivo `.env.example` y los secretos seguros configurados en el repositorio. |
 
 
