@@ -30,7 +30,7 @@ Para garantizar la consistencia en el desarrollo colaborativo y evitar publicaci
 * **`main` (Producción):** Contiene exclusivamente código estable, probado y listo para producción. Cada commit o merge en esta rama dispara el despliegue hacia el entorno final.
 * **`dev` (Integración / Staging):** Rama principal de desarrollo donde se integran los cambios de los integrantes. Permite validar los flujos de CI/CD en un entorno de pruebas previo.
 * **`feature/*` (Nuevas Funcionalidades):** Ramas temporales creadas a partir de `dev` para el desarrollo de características o tareas específicas (ej. `feature/analisis-requerimientos`). Se integran a `dev` mediante Pull Requests.
-* **`hotfix/*` (Correcciones Uregentes):** Ramas temporales creadas a partir de `main` para solventar errores críticos detectados directamente en producción.
+* **`hotfix/*` (Correcciones Urgentes):** Ramas temporales creadas a partir de `main` para solventar errores críticos detectados directamente en producción.
 
 ### 2.2 Reglas de Protección de Ramas (Branch Protection Rules)
 Para preservar la estabilidad del código base en GitHub, se aplicarán las siguientes políticas de protección:
