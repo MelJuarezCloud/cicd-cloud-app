@@ -132,8 +132,9 @@ jobs:
 * **Justificación:** Vercel ofrece una compatibilidad nativa óptima para aplicaciones basadas en Node.js, integración automatizada con GitHub, despliegues instantáneos y certificados SSL gratuitos ideales para entornos educativos.
 
 ### 5.2 Gestión de Secretos y Seguridad
-* **GitHub Secrets:** Las credenciales sensibles, tokens de despliegue y variables de conexión se almacenarán de forma cifrada en la sección de secretos de GitHub Actions.
-* **Variables de Entorno:** Se utilizará un archivo plantilla (`.env.example`) para documentar las variables requeridas en Node.js.
+- **Archivo .env.example**: Es una plantilla puramente informativa colocada en el repositorio que contiene nombres de variables de entorno de ejemplo (por ejemplo, PORT=3000, DATABASE_URL=tu_conexion_aqui) sin incluir ningún token, contraseña o dato real o sensible.
+- **GitHub Secrets**: Almacena de forma cifrada las credenciales internas que utiliza GitHub Actions durante la compilación o pruebas.
+- **Vercel Environment Variables**: Almacena las credenciales de producción definitivas de la aplicación web que el hosting inyecta de forma segura al momento de ejecutar el despliegue.
 
 ### 5.3 Análisis de Limitaciones y Mitigación (Free Tier)
 * **Minutos de GitHub Actions:** Límite mensual de 2,000 minutos gratuitos. *Estrategia de mitigación:* Implementación de caché de dependencias de `npm` en los workflows para agilizar los tiempos de compilación.   
@@ -165,5 +166,6 @@ jobs:
 | **Superar el límite de minutos en GitHub Actions** | Medio | Baja | Monitoreo del consumo mensual y optimización de disparadores. |
 | **Error crítico detectado en producción tras un merge a main** | Alto | Baja | Ejecución de Rollback rápido utilizando el historial de versiones estables directamente desde el panel de Vercel o la reversión de commits. |
 | **Variables de entorno de Node.js mal configuradas** | Alto | Media | Verificación cruzada utilizando el archivo `.env.example` y los secretos seguros configurados en el repositorio. |
+
 
 
