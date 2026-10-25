@@ -24,6 +24,13 @@
 * **Entregable:** Repositorio estructurado y sincronizado en la rama `dev`.
 * **Estado:** Completado.
 
+
+### Actividad 4: Corrección de Documentación y Sincronización Final (Fase 1)
+
+* **Descripción:** Se atendió la Corrección 3 indicada por el tutor en el documento `docs/analisis_cicd.md`, aclarando explícitamente el rol de `.env.example` como plantilla pública, GitHub Secrets para variables de compilación/pruebas, y Vercel Environment Variables para producción.
+* **Entregable:** Sección 5.2 de `docs/analisis_cicd.md` actualizada y repositorio sincronizado localmente mediante `git pull`.
+* **Estado:** Completado.
+
 ---
 
 ## Resumen de Commits Realizados
