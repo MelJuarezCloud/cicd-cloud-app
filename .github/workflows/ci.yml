@@ -1,27 +1,33 @@
-name: CI
+name: CI/CD Pipeline - Node.js Web App
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ dev ]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v5
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v5
-      with:
-        node-version: 24
+      - name: Configurar entorno Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Instalar dependencias limpias
+        run: npm ci
 
-    - name: Run ESLint
-      run: npx eslint .
+      - name: Ejecutar linter (ESLint)
+        run: npm run lint
 
-    - name: Run tests
-      run: npm test
+      - name: Ejecutar pruebas unitarias (Jest)
+        run: npm test
+
+      - name: Compilar aplicación (Build)
+        run: npm run build --if-present
