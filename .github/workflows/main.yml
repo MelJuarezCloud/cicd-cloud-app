@@ -34,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Ejecutar linter (ESLint)
-  run: npm run lint --if-present
+        run: npm run lint --if-present
 
   # ---------------------------------------------------------
   # CALIDAD: Pruebas unitarias (matrix de versiones de Node)
@@ -60,7 +60,7 @@ jobs:
         run: npm ci
 
       - name: Ejecutar pruebas unitarias (Jest)
-  run: npm test --if-present
+        run: npm test --if-present
 
   # ---------------------------------------------------------
   # BUILD
