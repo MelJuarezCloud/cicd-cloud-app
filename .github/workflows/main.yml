@@ -2,71 +2,167 @@ name: CI/CD Pipeline - Node.js Web App
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [main, dev]
   pull_request:
-    branches: [ dev ]
+    branches: [dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  # -------------------------------------------------------------
-  # FASE CI: Integración Continua (Pruebas y Build)
-  # -------------------------------------------------------------
-  build-and-test:
+  # ---------------------------------------------------------
+  # CALIDAD: Lint
+  # ---------------------------------------------------------
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar entorno Node.js
+      - name: Configurar Node.js con cache
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          
+          node-version: 22
+          cache: npm
 
       - name: Instalar dependencias
-        run: npm install
+        run: npm ci
 
       - name: Ejecutar linter (ESLint)
-        run: npm run lint --if-present
+        run: npm run lint
 
-      - name: Ejecutar pruebas unitarias (Jest)
-        run: npm test --if-present
-
-      - name: Compilar aplicación (Build)
-        run: npm run build --if-present
-
-  # -------------------------------------------------------------
-  # FASE CD: Despliegue Continuo a Vercel
-  # -------------------------------------------------------------
-  deploy-to-vercel:
-    needs: build-and-test
+  # ---------------------------------------------------------
+  # CALIDAD: Pruebas unitarias (matrix de versiones de Node)
+  # ---------------------------------------------------------
+  test:
+    name: Test (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22, 24]
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
+
+      - name: Configurar Node.js con cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas unitarias con cobertura (Jest)
+        run: npm test -- --coverage
+
+  # ---------------------------------------------------------
+  # BUILD
+  # ---------------------------------------------------------
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js con cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar aplicación
+        run: npm run build --if-present
+
+  # ---------------------------------------------------------
+  # DEPLOY A DEV (entorno de pruebas, solo push a dev)
+  # ---------------------------------------------------------
+  deploy-dev:
+    name: Deploy Dev (preview)
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
       - name: Instalar Vercel CLI
         run: npm install --global vercel@latest
 
-      - name: Extraer entorno de Vercel
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Extraer entorno de Vercel (preview)
+        run: vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
 
-      - name: Compilar para producción en Vercel
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Compilar para Vercel
+        run: vercel build --token="$VERCEL_TOKEN"
 
-      - name: Desplegar a Vercel Producción
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Desplegar a Vercel (con reintentos)
+        run: |
+          url=""
+          for i in 1 2 3; do
+            if url=$(vercel deploy --prebuilt --token="$VERCEL_TOKEN"); then break; fi
+            echo "Intento $i falló, reintentando en 10s..."
+            sleep 10
+          done
+          [ -n "$url" ] || { echo "El deploy falló tras 3 intentos"; exit 1; }
+          echo "URL de dev: $url" >> "$GITHUB_STEP_SUMMARY"
+
+  # ---------------------------------------------------------
+  # DEPLOY A PRODUCCIÓN (solo push a main)
+  # ---------------------------------------------------------
+  deploy-prod:
+    name: Deploy Producción
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Extraer entorno de Vercel (producción)
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      - name: Compilar para producción
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+
+      - name: Desplegar a producción (con reintentos)
+        run: |
+          url=""
+          for i in 1 2 3; do
+            if url=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"); then break; fi
+            echo "Intento $i falló, reintentando en 10s..."
+            sleep 10
+          done
+          [ -n "$url" ] || { echo "El deploy falló tras 3 intentos"; exit 1; }
+          echo "URL de producción: $url" >> "$GITHUB_STEP_SUMMARY"
