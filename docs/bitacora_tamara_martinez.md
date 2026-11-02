@@ -67,3 +67,33 @@ chore: eliminar archivos obsoletos en main
 fix: recuperar archivos desde commit previo
 
 ci: ajustar políticas de PR y validación de ESLint
+
+
+
+Bitácora de Trabajo Individual – Fase 2
+
+Actividad realizada
+
+Se trabajó en la rama feature/pruebas-unitarias, creada a partir de la rama dev. Se modificó el archivo src/sum.js para validar que la función sum solo acepte números válidos y genere una excepción cuando los parámetros sean incorrectos. Posteriormente, se actualizó el archivo tests/sum.test.js incorporando una suite de 6 pruebas unitarias, compuesta por 4 casos normales y 2 escenarios de error. Finalmente, se creó un Pull Request hacia la rama dev, se verificó la ejecución del pipeline CI/CD y se realizó el merge de los cambios.
+
+Problemas encontrados
+
+Durante el proceso se presentó una confusión inicial al navegar entre las ramas del repositorio, lo que dificultó localizar el archivo src/sum.js. Además, al revisar el resultado de las pruebas se observó que el pipeline mostraba 13 pruebas aprobadas en lugar de las 6 indicadas en la guía.
+
+Soluciones aplicadas
+
+Se verificó la rama activa y la estructura del repositorio hasta confirmar que el trabajo se realizaba en feature/pruebas-unitarias. Respecto al resultado de las pruebas, se comprobó que el repositorio ya contenía pruebas adicionales, por lo que el pipeline ejecutó todas las pruebas existentes del proyecto. Se validó que el archivo tests/sum.test.js se ejecutó correctamente y que todas las pruebas finalizaron de forma satisfactoria.
+
+Resultados obtenidos
+Implementación de validación de tipos en la función sum.
+Incorporación de 6 pruebas unitarias (4 casos normales y 2 casos de error).
+Ejecución exitosa del pipeline CI/CD.
+Aprobación de los checks Build, Lint, Test (Node 22) y Test (Node 24).
+Pull Request fusionado correctamente a la rama dev.
+Verificación del workflow posterior al merge en estado exitoso.
+Evidencias adjuntas
+Captura del Pull Request fusionado.
+Captura de los checks en verde.
+Captura del log de ejecución de pruebas.
+Captura del workflow exitoso en Actions.
+Captura de eliminación de la rama feature/pruebas-unitarias.
