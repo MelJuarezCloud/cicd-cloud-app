@@ -7,86 +7,94 @@ Estudiante: Tamara Abigail Martínez Lemus
 Actividad 1: Selección y Configuración del Linter (ESLint)
 
 Descripción:
- Se revisaron las reglas de calidad de código para proyectos Node.js y se documentaron los lineamientos base de ESLint para mantener consistencia en el desarrollo del proyecto. Se analizaron criterios de formato, buenas prácticas y validaciones necesarias para apoyar el proceso de integración continua.
+ Durante esta actividad revisé los lineamientos de calidad de código utilizados en el proyecto. Analicé las reglas de ESLint para comprender cómo ayudan a mantener un código más ordenado y consistente, además de identificar los errores de estilo antes de integrar cambios al repositorio.
 
 Entregable:
- Documentación de reglas y lineamientos de ESLint incorporada al repositorio.
+ Documentación relacionada con las reglas y lineamientos de ESLint.
 
 Estado:
- Completado.
+ Comprobado.
 
-Actividad 2: Definición de la Convención de Commits
+Actividad 2: Convención de Commits
 
 Descripción:
- Se documentó el uso de Conventional Commits para estandarizar el formato de los mensajes de commit. Se revisaron prefijos como feat, fix, docs, test, chore y ci, con el objetivo de mejorar la organización y trazabilidad de cambios dentro del repositorio.
+ Revisé la convención de commits utilizada en el proyecto para comprender la estructura de los mensajes y la forma correcta de documentar los cambios realizados. También analicé el uso de prefijos como feat, fix, docs, test y ci.
 
 Entregable:
- Documento de convención de commits integrado al proyecto.
+ Documentación de la convención de commits utilizada en el repositorio.
 
 Estado:
- Completado.
+ Comprobado.
 
-Actividad 3: Definición de Criterios para Pull Requests
+Actividad 3: Revisión del Flujo de Pull Requests
 
 Descripción:
- Se revisaron los criterios necesarios para aprobar Pull Requests, incluyendo validación de pruebas, revisión de cambios, cumplimiento de estándares de calidad y seguimiento del flujo de integración hacia la rama de desarrollo.
+ Analicé el flujo de trabajo utilizado para la integración de cambios mediante Pull Requests. Revisé los criterios de validación requeridos antes de realizar un merge y la importancia de las pruebas automáticas dentro del proceso de integración continua.
 
 Entregable:
- Lineamientos de revisión y validación documentados.
+ Comprensión del flujo de revisión y validación de cambios antes de ser integrados a la rama de desarrollo.
 
 Estado:
- Completado.
+ Comprobado.
 
 Actividad 4: Implementación y Validación de Pruebas Unitarias
 
 Descripción:
- Se participó en la revisión e implementación de pruebas unitarias utilizando Jest. Se analizaron escenarios de validación de entradas, ejecución de pruebas automatizadas y funcionamiento del pipeline de integración continua para garantizar la estabilidad del proyecto.
+ Participé en la implementación y validación de pruebas unitarias con Jest. Revisé la estructura de las pruebas, el funcionamiento del pipeline de integración continua y la forma en que las pruebas permiten detectar errores antes de integrar nuevos cambios al proyecto.
 
 Entregable:
- Pruebas unitarias incorporadas y verificadas mediante la ejecución del pipeline CI/CD.
+ Pruebas unitarias verificadas mediante el pipeline CI/CD.
 
 Estado:
- Completado.
+ Comprobado.
 
 Aprendizajes Obtenidos
-Uso de ramas y Pull Requests como flujo de trabajo colaborativo.
-Aplicación de ESLint para mejorar la calidad del código.
-Implementación de Conventional Commits para mantener un historial organizado.
-Comprensión del funcionamiento de GitHub Actions dentro de un pipeline CI/CD.
-Importancia de las pruebas unitarias para la validación automática de funcionalidades.
-Uso de procesos de revisión antes de integrar cambios a la rama de desarrollo.
+Comprendí la importancia del uso de ESLint para mantener estándares de calidad en el código.
+Aprendí a utilizar Conventional Commits para documentar cambios de forma ordenada.
+Reforcé el uso de ramas y Pull Requests dentro de un entorno colaborativo.
+Comprendí cómo GitHub Actions ejecuta validaciones automáticas antes de integrar cambios.
+Identifiqué la importancia de las pruebas unitarias para garantizar el correcto funcionamiento del código.
+
+
 Bitácora de Trabajo Individual – Fase 2
-Actividad Realizada
 
-Se trabajó en la rama feature/pruebas-unitarias, creada a partir de la rama dev. Se modificó el archivo src/sum.js para validar que la función sum únicamente acepte números válidos y genere una excepción cuando los parámetros sean incorrectos.
+Actividad realizada
 
-Posteriormente, se actualizó el archivo tests/sum.test.js, incorporando una suite de 6 pruebas unitarias compuesta por 4 casos normales y 2 escenarios de error. Una vez completadas las modificaciones, se creó un Pull Request hacia la rama dev, se verificó la ejecución del pipeline CI/CD y se realizó el merge de los cambios.
+Durante esta fase trabajé en la rama feature/pruebas-unitarias, creada a partir de la rama dev. Modifiqué el archivo src/sum.js para agregar validaciones que aseguraran que la función sum únicamente aceptara números válidos y generara un error cuando recibiera datos incorrectos.
 
-Problemas Encontrados
+Posteriormente actualicé el archivo tests/sum.test.js, donde agregué una suite de 6 pruebas unitarias compuesta por casos normales y escenarios de error. Una vez realizados los cambios, creé el Pull Request correspondiente, revisé los resultados del pipeline y validé que todas las verificaciones se ejecutaran correctamente antes de realizar el merge a la rama dev.
 
-Durante el desarrollo se presentó una confusión inicial al navegar entre las ramas del repositorio, lo que dificultó localizar el archivo src/sum.js.
+Problemas encontrados
 
-Asimismo, durante la revisión del pipeline se observó que se ejecutaban más pruebas de las esperadas. Esto ocurrió porque el proyecto ya contenía suites de pruebas adicionales además de las implementadas durante esta actividad.
+Al inicio tuve dificultades para localizar el archivo src/sum.js debido a una confusión entre las ramas del repositorio. Además, al revisar los resultados del pipeline observé que se ejecutaban más pruebas de las esperadas, ya que el proyecto contaba con pruebas adicionales previamente implementadas.
 
-Soluciones Aplicadas
+Soluciones aplicadas
 
-Se verificó la rama activa y la estructura del repositorio hasta confirmar que el trabajo se realizaba en la rama feature/pruebas-unitarias.
+Verifiqué la rama activa y confirmé que estaba trabajando en feature/pruebas-unitarias. También revisé la estructura del repositorio hasta localizar correctamente los archivos requeridos. En relación con las pruebas, comprobé que el pipeline estaba ejecutando todas las suites existentes del proyecto y que las nuevas pruebas agregadas funcionaban correctamente.
 
-Posteriormente se comprobó que las pruebas adicionales pertenecían al proyecto y que el pipeline ejecutaba todas las suites de pruebas disponibles. También se verificó que el archivo tests/sum.test.js se ejecutó correctamente y que las nuevas pruebas implementadas aprobaron satisfactoriamente.
+Resultados obtenidos
+Implementé validaciones de tipo en la función sum.
+Agregué 6 pruebas unitarias (4 casos normales y 2 casos de error).
+Verifiqué la ejecución correcta del pipeline CI/CD.
+Obtuve la aprobación de los checks Build, Lint, Test (Node 22) y Test (Node 24).
+Realicé el merge del Pull Request hacia la rama dev.
+Verifiqué que el workflow posterior al merge finalizara exitosamente.
 
-Resultados Obtenidos
-Implementación de validación de tipos en la función sum.
-Incorporación de 6 pruebas unitarias (4 casos normales y 2 escenarios de error).
-Ejecución satisfactoria del pipeline CI/CD.
-Aprobación de los checks Build, Lint, Test (Node 22) y Test (Node 24).
-Pull Request fusionado correctamente a la rama dev.
-Verificación exitosa del workflow posterior al merge.
-Eliminación de la rama de trabajo feature/pruebas-unitarias tras la integración de cambios.
-Evidencias Adjuntas
+Evidencias adjuntas
 Captura del Pull Request fusionado.
-Captura de los checks en verde.
-Captura del log de ejecución de pruebas.
-Captura del workflow exitoso en GitHub Actions.
-Captura de eliminación de la rama feature/pruebas-unitarias.
+<img width="1047" height="161" alt="Captura de pantalla 2026-11-02 012547" src="https://github.com/user-attachments/assets/d9ac7146-8c9f-46b2-98f9-6c4f451214a6" />
 
-Esta versión elimina referencias a la corrección docs/docs y al trabajo atribuido a cam2023, deja todos los estados consistentes y coincide con la evidencia que realmente generaste.
+Captura de los checks en verde.
+<img width="1056" height="673" alt="Captura de pantalla 2026-11-02 002336" src="https://github.com/user-attachments/assets/04d5ef56-6ffa-4707-8926-b5a2bdbec97b" />
+
+Captura del log de ejecución de pruebas.
+<img width="1025" height="742" alt="Captura de pantalla 2026-11-02 004759" src="https://github.com/user-attachments/assets/39af7095-2002-42bd-a471-b567ace727e3" />
+
+Captura del workflow exitoso en GitHub Actions.
+<img width="1102" height="181" alt="Captura de pantalla 2026-11-02 013056" src="https://github.com/user-attachments/assets/9665ed6e-1d9a-4ef5-834f-2b41697d7cb1" />
+
+
+Captura de la eliminación de la rama feature/pruebas-unitarias.
+<img width="1006" height="303" alt="Captura de pantalla 2026-11-02 012730" src="https://github.com/user-attachments/assets/01330a1d-ac09-4775-b2c3-f48ddfddac26" />
+
+
