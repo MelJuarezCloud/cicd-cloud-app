@@ -1,22 +1,29 @@
-const { sum } = require("../src/sum");
+const { sum } = require('../src/sum');
 
+describe('sum - casos normales', () => {
+  test('1. suma dos numeros positivos', () => {
+    expect(sum(2, 3)).toBe(5);
+  });
 
-test("suma dos números positivos", () => {
-  expect(sum(2, 3)).toBe(5);
+  test('2. suma numeros negativos', () => {
+    expect(sum(-4, -6)).toBe(-10);
+  });
+
+  test('3. suma con cero', () => {
+    expect(sum(0, 7)).toBe(7);
+  });
+
+  test('4. suma numeros decimales', () => {
+    expect(sum(0.1, 0.2)).toBeCloseTo(0.3);
+  });
 });
 
-test("suma números negativos", () => {
-  expect(sum(-1, -1)).toBe(-2);
-});
+describe('sum - escenarios de error', () => {
+  test('5. lanza error si recibe un texto', () => {
+    expect(() => sum('2', 3)).toThrow(TypeError);
+  });
 
-test("suma cero con otro número", () => {
-  expect(sum(0, 5)).toBe(5);
-});
-
-test("suma números grandes", () => {
-  expect(sum(1000, 2000)).toBe(3000);
-});
-
-test("suma decimales", () => {
-  expect(sum(1.5, 2.5)).toBe(4);
+  test('6. lanza error si falta un argumento', () => {
+    expect(() => sum(5)).toThrow('sum requiere dos numeros validos');
+  });
 });
