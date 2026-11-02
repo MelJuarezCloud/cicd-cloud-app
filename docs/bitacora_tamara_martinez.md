@@ -1,4 +1,5 @@
 Bitácora de Trabajo Individual – Fase 1 
+
 Estudiante: Tamara Abigail Martínez Lemus
 Rol: Desarrollador Web Jr.
 Proyecto: CI/CD Cloud Económico para Aplicaciones Web
@@ -67,6 +68,7 @@ chore: eliminar archivos obsoletos en main
 fix: recuperar archivos desde commit previo
 
 ci: ajustar políticas de PR y validación de ESLint
+
 
 
 
