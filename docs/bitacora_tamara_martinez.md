@@ -60,24 +60,43 @@ Bitácora de Trabajo Individual – Fase 2
 
 Actividad realizada
 
-Durante esta fase trabajé en la rama feature/pruebas-unitarias, creada a partir de la rama dev. Modifiqué el archivo src/sum.js para agregar validaciones que aseguraran que la función sum únicamente aceptara números válidos y generara un error cuando recibiera datos incorrectos.
+Durante esta fase trabajé en la implementación y validación de pruebas unitarias dentro del proyecto CI/CD Cloud Económico para Aplicaciones Web. Para ello utilicé una rama de trabajo derivada de dev, donde realicé modificaciones en el archivo src/sum.js con el objetivo de agregar validaciones que permitieran verificar el tipo de datos recibidos por la función y generar errores controlados cuando los parámetros fueran incorrectos.
 
-Posteriormente actualicé el archivo tests/sum.test.js, donde agregué una suite de 6 pruebas unitarias compuesta por casos normales y escenarios de error. Una vez realizados los cambios, creé el Pull Request correspondiente, revisé los resultados del pipeline y validé que todas las verificaciones se ejecutaran correctamente antes de realizar el merge a la rama dev.
+Posteriormente desarrollé y ejecuté pruebas unitarias utilizando Jest. Mi contribución principal fue la creación de las 6 pruebas contenidas en tests/sum.test.js, las cuales incluyeron casos normales de operación y escenarios de error. Además, verifiqué la correcta ejecución de todas las pruebas existentes del proyecto mediante el pipeline de integración continua.
+
+Una vez finalizados los cambios, generé el Pull Request correspondiente, validé la ejecución de los workflows automáticos y confirmé que todas las verificaciones finalizaran correctamente antes de realizar el merge hacia la rama dev.
 
 Problemas encontrados
 
-Al inicio tuve dificultades para localizar el archivo src/sum.js debido a una confusión entre las ramas del repositorio. Además, al revisar los resultados del pipeline observé que se ejecutaban más pruebas de las esperadas, ya que el proyecto contaba con pruebas adicionales previamente implementadas.
+Al inicio tuve dificultades para localizar algunos archivos debido a una confusión entre las ramas del repositorio. Después de revisar la estructura del proyecto pude identificar correctamente los archivos necesarios para realizar la actividad.
+
+Durante la revisión de los resultados del pipeline observé que el proyecto ejecutaba más pruebas de las que inicialmente había considerado. Aunque desarrollé 6 pruebas en sum.test.js, el proyecto contaba con un total de 13 pruebas distribuidas en 5 archivos de prueba.
+
+Además, se identificó que el archivo main.yml había sido modificado directamente en la rama dev, lo que provocó la pérdida de la configuración relacionada con la cobertura de pruebas, validaciones de lint estrictas y parte del comportamiento esperado del workflow.
 
 Soluciones aplicadas
 
-Verifiqué la rama activa y confirmé que estaba trabajando en feature/pruebas-unitarias. También revisé la estructura del repositorio hasta localizar correctamente los archivos requeridos. En relación con las pruebas, comprobé que el pipeline estaba ejecutando todas las suites existentes del proyecto y que las nuevas pruebas agregadas funcionaban correctamente.
+Verifiqué la rama activa antes de realizar modificaciones y revisé la estructura completa del repositorio para localizar correctamente los archivos requeridos.
+
+Para validar los resultados, revisé los logs generados por GitHub Actions y confirmé que el pipeline ejecutaba correctamente las 13 pruebas existentes del proyecto distribuidas en los siguientes archivos:
+
+entradaVacia.test.js
+integracion.test.js
+sum.test.js
+esPar.test.js
+errores.test.js
+
+También revisé el historial de main.yml y observé que se realizaron cambios directamente en la rama dev. Como resultado, se perdió la configuración que ejecutaba la cobertura de pruebas, el lint estricto y parte de la configuración de reintentos del workflow. Posteriormente, esos elementos fueron restaurados por Melvin Juárez mediante el PR #7, recuperando el funcionamiento esperado del pipeline CI/CD.
 
 Resultados obtenidos
 Implementé validaciones de tipo en la función sum.
-Agregué 6 pruebas unitarias (4 casos normales y 2 casos de error).
-Verifiqué la ejecución correcta del pipeline CI/CD.
+Desarrollé 6 pruebas unitarias en tests/sum.test.js.
+Verifiqué la ejecución satisfactoria de un total de 13 pruebas distribuidas en 5 archivos de prueba.
+Confirmé una cobertura del 100 % para el archivo sum.js.
+Validé exitosamente la ejecución del pipeline CI/CD.
 Obtuve la aprobación de los checks Build, Lint, Test (Node 22) y Test (Node 24).
-Realicé el merge del Pull Request hacia la rama dev.
+Completé el proceso de integración mediante el Pull Request #6.
+Realicé el merge del Pull Request #6 hacia la rama dev.
 Verifiqué que el workflow posterior al merge finalizara exitosamente.
 
 Evidencias adjuntas
