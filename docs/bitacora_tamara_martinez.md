@@ -56,13 +56,15 @@ Comprendí cómo GitHub Actions ejecuta validaciones automáticas antes de integ
 Identifiqué la importancia de las pruebas unitarias para garantizar el correcto funcionamiento del código.
 
 
+
+
 Bitácora de Trabajo Individual – Fase 2
 
 Actividad realizada
 
 Durante esta fase trabajé en la implementación y validación de pruebas unitarias dentro del proyecto CI/CD Cloud Económico para Aplicaciones Web. Para ello utilicé una rama de trabajo derivada de dev, donde realicé modificaciones en el archivo src/sum.js con el objetivo de agregar validaciones que permitieran verificar el tipo de datos recibidos por la función y generar errores controlados cuando los parámetros fueran incorrectos.
 
-Posteriormente desarrollé y ejecuté pruebas unitarias utilizando Jest. Mi contribución principal fue la creación de las 6 pruebas contenidas en tests/sum.test.js, las cuales incluyeron casos normales de operación y escenarios de error. Además, verifiqué la correcta ejecución de todas las pruebas existentes del proyecto mediante el pipeline de integración continua.
+Posteriormente desarrollé y ejecuté pruebas unitarias utilizando Jest. Mi contribución principal fue la creación de las 5 pruebas contenidas en tests/sum.test.js, las cuales incluyeron casos normales de operación y escenarios de error. Durante la revisión de los archivos de prueba también validé la estructura y sintaxis del archivo para asegurar su correcta ejecución dentro del entorno Jest, corrigiendo detalles de formato que podían afectar la interpretación del código. Además, verifiqué la correcta ejecución de todas las pruebas existentes del proyecto mediante el pipeline de integración continua y confirmé el funcionamiento adecuado de los archivos de prueba incluidos en el repositorio, entre ellos app.tests.js, utilizado como prueba de validación inicial del entorno de testing.
 
 Una vez finalizados los cambios, generé el Pull Request correspondiente, validé la ejecución de los workflows automáticos y confirmé que todas las verificaciones finalizaran correctamente antes de realizar el merge hacia la rama dev.
 
@@ -81,12 +83,21 @@ Verifiqué la rama activa antes de realizar modificaciones y revisé la estructu
 Para validar los resultados, revisé los logs generados por GitHub Actions y confirmé que el pipeline ejecutaba correctamente las 13 pruebas existentes del proyecto distribuidas en los siguientes archivos:
 
 entradaVacia.test.js
+
 integracion.test.js
+
 sum.test.js
+
 esPar.test.js
+
 errores.test.js
 
+<img width="1317" height="683" alt="Captura de pantalla 2026-11-03 114917" src="https://github.com/user-attachments/assets/b0678185-e687-48ea-9d93-d2d15cad0a7f" />
+
+
 También revisé el historial de main.yml y observé que se realizaron cambios directamente en la rama dev. Como resultado, se perdió la configuración que ejecutaba la cobertura de pruebas, el lint estricto y parte de la configuración de reintentos del workflow. Posteriormente, esos elementos fueron restaurados por Melvin Juárez mediante el PR #7, recuperando el funcionamiento esperado del pipeline CI/CD.
+
+Además, revisé el contenido de los archivos de prueba para verificar la compatibilidad con Jest y asegurar la correcta ejecución dentro del pipeline CI/CD. Durante esta validación corregí detalles de formato en el archivo de pruebas unitarias, evitando posibles errores de sintaxis y garantizando el funcionamiento esperado de las pruebas automatizadas.
 
 Resultados obtenidos
 Implementé validaciones de tipo en la función sum.
@@ -98,6 +109,15 @@ Obtuve la aprobación de los checks Build, Lint, Test (Node 22) y Test (Node 24)
 Completé el proceso de integración mediante el Pull Request #6.
 Realicé el merge del Pull Request #6 hacia la rama dev.
 Verifiqué que el workflow posterior al merge finalizara exitosamente.
+Revisé y validé la estructura de los archivos de prueba utilizados por Jest.
+Confirmé el correcto funcionamiento de los archivos de prueba incluidos en el repositorio.
+Verifiqué la ejecución exitosa de 5 suites de pruebas y 13 pruebas automatizadas.
+Información del Pull Request
+
+Número: PR #6
+ Título: test: agrega pruebas unitarias de casos normales y de error
+ Fecha de realización: 1 de noviembre de 2026
+ Resultado: El Pull Request completó satisfactoriamente todas las validaciones automáticas del pipeline CI/CD y fue fusionado correctamente a la rama dev. Posteriormente realicé una revisión adicional de los archivos de prueba del proyecto, validé nuevamente la estructura y ejecución de sum.test.js y app.tests.js, y ejecuté una nueva corrida del pipeline mediante GitHub Actions. Como resultado, se confirmaron exitosamente las validaciones de Build, Lint, Test (Node 22) y Test (Node 24), con un total de 5 suites de prueba y 13 pruebas ejecutadas correctamente.
 
 Evidencias adjuntas
 Captura del Pull Request fusionado.
