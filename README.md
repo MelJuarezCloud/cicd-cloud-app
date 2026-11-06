@@ -11,6 +11,7 @@ Proyecto de Estancia Profesional (ESIT). Pipeline de integración y despliegue c
 ## Pipeline
 El workflow está en `.github/workflows/main.yml` y tiene cinco jobs:
 
+
 | Job | Función | Cuándo corre |
 |---|---|---|
 | lint | ESLint | push y PR |
@@ -43,3 +44,9 @@ npm test -- --coverage
 ## URLs
 - Producción: (completar cuando esté disponible)
 - Preview (dev): (completar cuando esté disponible)
+
+## Tecnologías
+- Control de versiones: Git y GitHub (`main`, `dev`, `feature/*`)
+- Automatización: GitHub Actions
+- Calidad: ESLint y Jest
+- Hosting: Vercel (plan gratuito)
