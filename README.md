@@ -1,19 +1,52 @@
-# CI/CD Cloud Económico para Aplicaciones Web (DNSDE)
+# CI/CD Cloud Económico para Aplicaciones Web
 
-Repositorio oficial para la gestión de infraestructura, despliegues continuos y automatización bajo un modelo de costos optimizados (Free Tier).
+Proyecto de Estancia Profesional (ESIT). Pipeline de integración y despliegue continuo con GitHub Actions y Vercel, usando solo planes gratuitos.
 
-## 🚀 Descripción del Proyecto
-Este proyecto forma parte de la estancia técnica orientada a diseñar, configurar y desplegar flujos de Integración Continua y Despliegue Continuo (CI/CD) utilizando herramientas modernas y plataformas en la nube gratuitas.
+## Equipo
+- Melvin Omar Juárez Rodríguez: Líder de Proyecto y Co-DevOps
+- Carlos Armando Martínez Chicas: Ingeniero Cloud y Despliegue
+- Tamara Abigail Martínez Lemus: QA / Testing & CI
+- Zuleima Beatriz Medina Morales: Riesgos y Documentación Técnica
 
-## 📂 Estructura del Repositorio
-* `/src` - Código fuente de la aplicación web.
-* `/tests` - Módulos de pruebas automatizadas.
-* `/ci` - Definición de pipelines y workflows (GitHub Actions).
-* `/infra` - Configuraciones de infraestructura y despliegue en la nube.
-* `/docs` - Documentación técnica (Incluye el Plan de Recursos Tecnológicos - PRT).
+## Pipeline
+El workflow está en `.github/workflows/main.yml` y tiene cinco jobs:
 
-## 🛠️ Tecnologías Utilizadas
-* **Control de Versiones:** Git & GitHub (GitFlow: `main`, `dev`).
-* **Automatización:** GitHub Actions.
-* **Infraestructura:** Vercel / Render / Railway (Free Tier).
-* **Infraestructura:** Vercel / Render / Railway (Free Tier).
+
+| Job | Función | Cuándo corre |
+|---|---|---|
+| lint | ESLint | push y PR |
+| test | Jest con cobertura, matrix Node 22 y 24 | push y PR |
+| build | Compilación | después de lint y test |
+| deploy-dev | Preview en Vercel | push a `dev` |
+| deploy-prod | Producción en Vercel | push a `main` |
+
+## Flujo de ramas
+- `main`: producción.
+- `dev`: integración y pruebas.
+- `feature/*`: trabajo de cada integrante; se une a `dev` con Pull Request.
+- Commits con formato Conventional Commits (`feat:`, `fix:`, `docs:`, `ci:`, `test:`).
+
+## Cómo correr las pruebas
+```bash
+npm ci
+npm run lint
+npm test -- --coverage
+```
+
+## Estructura
+- `src/`: código de la aplicación
+- `tests/`: pruebas automatizadas
+- `ci/`: documentación del pipeline
+- `docs/`: documentación y bitácoras
+- `infra/`: configuración del hosting
+- `public/`: página inicial
+
+## URLs
+- Producción: (completar cuando esté disponible)
+- Preview (dev): (completar cuando esté disponible)
+
+## Tecnologías
+- Control de versiones: Git y GitHub (`main`, `dev`, `feature/*`)
+- Automatización: GitHub Actions
+- Calidad: ESLint y Jest
+- Hosting: Vercel (plan gratuito)
