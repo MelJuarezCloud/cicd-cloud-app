@@ -20,6 +20,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
@@ -42,6 +43,7 @@ jobs:
   test:
     name: Test (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
@@ -68,6 +70,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: [lint, test]
     steps:
       - name: Checkout del repositorio
@@ -82,7 +85,7 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Compilar aplicación
+      - name: Compilar aplicación (sin script build; el build real es vercel build en deploy)
         run: npm run build --if-present
 
   # ---------------------------------------------------------
@@ -91,6 +94,7 @@ jobs:
   deploy-dev:
     name: Deploy Dev (preview)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
     env:
@@ -132,6 +136,7 @@ jobs:
   deploy-prod:
     name: Deploy Producción
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     env:
