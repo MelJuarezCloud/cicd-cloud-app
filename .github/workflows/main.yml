@@ -3,8 +3,17 @@ name: CI/CD Pipeline - Node.js Web App
 on:
   push:
     branches: [main, dev]
+    paths-ignore:
+      - "docs/**"
+      - "**.md"
   pull_request:
     branches: [dev, main]
+  workflow_dispatch:
+    inputs:
+      simular_error:
+        description: "Simular un error de despliegue (solo para pruebas)"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -64,6 +73,13 @@ jobs:
       - name: Ejecutar pruebas unitarias con cobertura (Jest)
         run: npm test -- --coverage
 
+      - name: Guardar reporte de cobertura
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-node-${{ matrix.node-version }}
+          path: coverage/
+          retention-days: 14
+
   # ---------------------------------------------------------
   # BUILD
   # ---------------------------------------------------------
@@ -85,18 +101,26 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Compilar aplicación (sin script build; el build real es vercel build en deploy)
-        run: npm run build --if-present
+      - name: Compilar aplicación (genera dist/ y valida la página)
+        run: npm run build
+
+      - name: Guardar artefacto de build
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 14
+          if-no-files-found: error
 
   # ---------------------------------------------------------
-  # DEPLOY A DEV (entorno de pruebas, solo push a dev)
+  # DEPLOY A DEV (entorno de pruebas, push a dev o ejecución manual en dev)
   # ---------------------------------------------------------
   deploy-dev:
     name: Deploy Dev (preview)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/dev'
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -105,10 +129,11 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
+      - name: Configurar Node.js con cache
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Instalar Vercel CLI
         run: npm install --global vercel@latest
@@ -119,7 +144,13 @@ jobs:
       - name: Compilar para Vercel
         run: vercel build --token="$VERCEL_TOKEN"
 
-      - name: Desplegar a Vercel (con reintentos)
+      - name: Simular error de despliegue (solo ejecución manual)
+        if: github.event_name == 'workflow_dispatch' && inputs.simular_error
+        run: |
+          echo "Error simulado para la prueba de escenario 4"
+          exit 1
+
+      - name: Desplegar a Vercel (con reintentos) y smoke test
         run: |
           url=""
           for i in 1 2 3; do
@@ -129,6 +160,11 @@ jobs:
           done
           [ -n "$url" ] || { echo "El deploy falló tras 3 intentos"; exit 1; }
           echo "URL de dev: $url" >> "$GITHUB_STEP_SUMMARY"
+          echo "Smoke test: $url"
+          curl --fail --silent --show-error --retry 5 --retry-delay 5 --retry-all-errors "$url" > /dev/null
+          salud=$(curl --fail --silent --show-error --retry 5 --retry-delay 5 --retry-all-errors "$url/health.json")
+          echo "$salud" | grep -q '"status": "ok"'
+          echo "Smoke test correcto" >> "$GITHUB_STEP_SUMMARY"
 
   # ---------------------------------------------------------
   # DEPLOY A PRODUCCIÓN (solo push a main)
@@ -147,10 +183,11 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
+      - name: Configurar Node.js con cache
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Instalar Vercel CLI
         run: npm install --global vercel@latest
@@ -161,7 +198,7 @@ jobs:
       - name: Compilar para producción
         run: vercel build --prod --token="$VERCEL_TOKEN"
 
-      - name: Desplegar a producción (con reintentos)
+      - name: Desplegar a producción (con reintentos) y smoke test
         run: |
           url=""
           for i in 1 2 3; do
@@ -171,3 +208,8 @@ jobs:
           done
           [ -n "$url" ] || { echo "El deploy falló tras 3 intentos"; exit 1; }
           echo "URL de producción: $url" >> "$GITHUB_STEP_SUMMARY"
+          echo "Smoke test: $url"
+          curl --fail --silent --show-error --retry 5 --retry-delay 5 --retry-all-errors "$url" > /dev/null
+          salud=$(curl --fail --silent --show-error --retry 5 --retry-delay 5 --retry-all-errors "$url/health.json")
+          echo "$salud" | grep -q '"status": "ok"'
+          echo "Smoke test correcto" >> "$GITHUB_STEP_SUMMARY"
