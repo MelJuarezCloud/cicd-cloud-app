@@ -1,0 +1,6 @@
+# Registro de versiones
+ 
+| Versión | Fecha | Descripción | Referencia |
+|---|---|---|---|
+| v0.2.0 | 06/11/2026 | Pipeline CI/CD con despliegue automático a Preview y producción en Vercel | PR #15, run #65, commit db73451 |
+
