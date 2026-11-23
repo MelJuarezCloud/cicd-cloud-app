@@ -69,6 +69,30 @@
 
 ---
 
+## Registro de Actividades (Fase 3: Disponibilidad, Monitoreo y Pruebas de Resiliencia)
+
+### Actividad 10: Validación de Escenarios de CI/CD en GitHub Actions
+- **Descripción:** Ejecución y validación manual (`workflow_dispatch`) de los escenarios de integración continua sobre la rama `dev`, abarcando pruebas de control de fallos y validación de *smoke tests* exitosos.
+- **Entregable:** Historial de ejecuciones en verde en GitHub Actions (Runs bajo usuario `cam2023`).
+- **Estado:** Completado.
+
+### Actividad 11: Auditoría de Reversión (Rollback) y Limitaciones en Vercel
+- **Descripción:** Análisis técnico de las restricciones operativas del plan Hobby en Vercel respecto al almacenamiento de artefactos y opciones de reversión instantánea (*Instant Rollback*), estableciendo formalmente el uso de `git revert` y un nuevo ciclo del pipeline como estrategia de recuperación ante incidentes.
+- **Entregable:** Documentación de estrategias de mitigación en el reporte de disponibilidad.
+- **Estado:** Completado.
+
+### Actividad 12: Implementación de Monitoreo Sintético y Status Page
+- **Descripción:** Configuración de sondeos automáticos HTTP(s) cada 5 minutos mediante UptimeRobot apuntando al endpoint de salud del servicio (`/health.json`), complementado con la habilitación de la página pública de estado.
+- **Entregable:** Monitoreo activo y panel público de disponibilidad accesible en [https://stats.uptimerobot.com/Q1qTSi88fy](https://stats.uptimerobot.com/Q1qTSi88fy).
+- **Estado:** Completado.
+
+### Actividad 13: Elaboración del Reporte Técnico de Disponibilidad
+- **Descripción:** Consolidación de evidencias, métricas de uptime, restricciones de infraestructura y bitácora de pruebas en el documento oficial del repositorio.
+- **Entregable:** Archivo `/docs/reporte_disponibilidad.md` integrado mediante Pull Request hacia `dev`.
+- **Estado:** Completado.
+
+---
+
 ## Cronología de Commits y Ejecuciones Clave
 
 - `ec5b622`: Commit inicial de referencia para la infraestructura base del proyecto.
@@ -91,6 +115,7 @@
 <img width="1328" height="569" alt="1 4" src="https://github.com/user-attachments/assets/8ed29d96-1b77-492d-89ad-43eff848508a" />
 <img width="1325" height="517" alt="1 3" src="https://github.com/user-attachments/assets/e1c0902b-7285-4fce-be53-d63cbc15e3f3" />
 <img width="1361" height="712" alt="1 2" src="https://github.com/user-attachments/assets/1f373373-e742-4f8e-9b2c-b1f0141178cd" />
+
 
 ---
 
