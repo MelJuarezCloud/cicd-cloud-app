@@ -7,7 +7,7 @@ function sum(a, b) {
   ) {
     throw new TypeError('sum requiere dos numeros validos');
   }
-  return a + b;
+  return a - b;
 }
 
 module.exports = { sum };
